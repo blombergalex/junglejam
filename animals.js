@@ -2,7 +2,7 @@ $(() => {
     console.log("ready");
 
     const ANIMAL_URL = "https://api.api-ninjas.com/v1/animals?name=";
-    const API_KEY = "8vIIuF5yMMxMuUSYsTIIrQ==KfWC81Zd84v21P0";
+    const API_KEY = "8vIIuF5yMMxMuUSYsTIIrQ==KfWC81Zd84v21P0k";
     
     
     $(".search-btn").on("click", () => {
