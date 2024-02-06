@@ -31,34 +31,39 @@ $(() => {
 
             let data = await response.json();
             let animal = data[0].name;
-            
+            let length = data[0].characteristics.length;
+            let diet = data[0].characteristics.main_prey;
+
+
             console.log(data);
             
             displayAnimal(animal);
+            displayLength(length);
+            displayDiet(diet);
         } catch (error) {
             $(".note").empty().append(`<p>Oi! I don't know anything about this animal. Does ${$("#user-search").val()} really exist? Or are you messing with mee? Error: ${error}</p>`);
         }
     };
 
-    const getAnimalLengthandDiet = async (url, apiKey) => {
-        try {
-            let response = await fetch(url, {headers: {'X-Api-Key': apiKey,}
-            });
+    // const getAnimalLengthandDiet = async (url, apiKey) => {
+    //     try {
+    //         let response = await fetch(url, {headers: {'X-Api-Key': apiKey,}
+    //         });
 
-            if (!response.ok) {
-                throw new Error("Oh no! Something went wrong. Error code: " + response.status);
-            }
+    //         if (!response.ok) {
+    //             throw new Error("Oh no! Something went wrong. Error code: " + response.status);
+    //         }
 
-            let data = await response.json();
-            let length = data[0].characteristics.length;
-            let diet = data[0].characteristics.main_prey;
+    //         let data = await response.json();
+    //         let length = data[0].characteristics.length;
+    //         let diet = data[0].characteristics.main_prey;
             
-            displayLength(length);
-            displayDiet(diet);
-        } catch (error) {
-            $(".note").empty().append(`<p>Sorry, couldn't get that much info on ${$("#user-search").val()}, because of ${error}</p>`);
-        }
-    };
+    //         displayLength(length);
+    //         displayDiet(diet);
+    //     } catch (error) {
+    //         $(".note").empty().append(`<p>Sorry, couldn't get that much info on ${$("#user-search").val()}, because of ${error}</p>`);
+    //     }
+    // };
 
     const displayAnimal = (data) => {
         console.log("Animal data: ", data); //remove later
@@ -69,7 +74,7 @@ $(() => {
 
     const displayLength = (data) => {
         $(".animals").append(`
-            <p>${data}</p>
+            <p>${data}</p>  
             `)
         };
 
