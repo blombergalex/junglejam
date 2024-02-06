@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100vw;
+    margin: 0;
+}
+
+body {
+    background-color: rgb(36, 37, 36);
+    color: #FFF;
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+}
+
+header {
+    background-color: rgb(223, 141, 8);
+    box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    color: rgb(255, 253, 253);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 32px;
+    padding: 16px;
+}
+
+.main-content  {
+    justify-content: center;
+    /* padding: 24px; */
+    margin: 48px;
+    font-size: 1.2rem;
+}
+
+.search {
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    
+}
+
+.search * {
+    margin: 8px;
+    border: 0;
+    border-radius: 2px;
+}
+
+#user-search {
+}
+
+.search-btn {
+    background-color: goldenrod;
+    /* color: rgb(37, 35, 35); */
+    color: #ffffff;
+    text-shadow: 0.5px 0.5px 0.5px rgb(37, 35, 35);
+
+    border: 0;
+}
