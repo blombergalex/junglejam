@@ -19,15 +19,19 @@ $(() => {
             }
 
             let data = await response.json();
-            displayAnimals(data);
+            let animal = data[0].name;
+            
+            displayAnimal(animal);
         } catch (error) {
             $(".animals").append(`<p>Oops! Something went wrong: ${error}`);
         }
     };
 
-    const displayAnimals = (data) => {
-        console.log("Animal data: ", data); // find correct path for objects
+    const displayAnimal = (data) => {
+        console.log("Animal data: ", data); 
+        $(".animals").append(`
+            <p class="animal-name">${data}</p>
+        `)
     };
-
     
 });
