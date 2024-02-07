@@ -1,14 +1,8 @@
 $(() => {
-    console.log("ready");
 
     const ANIMAL_URL = "https://api.api-ninjas.com/v1/animals?name=";
     const API_KEY = "8vIIuF5yMMxMuUSYsTIIrQ==KfWC81Zd84v21P0k";
     
-
-    const getRandomNumber = () => {
-       return Math.floor(Math.random() * 10); //replace 10 with amount of objects returned
-    }
-
     const search = () => {
         let userInput = $("#user-search").val();
         getAnimalName(ANIMAL_URL + userInput, API_KEY);
@@ -23,8 +17,8 @@ $(() => {
     };
     
     const getAnimalName = async (url, apiKey) => {
-        const randomNumber = getRandomNumber();
-        console.log("Number: " + randomNumber);
+        // const randomNumber = getRandomNumber();
+        // console.log("Number: " + randomNumber);
         
         try {
             let response = await fetch(url, {headers: {'X-Api-Key': apiKey,}
@@ -34,22 +28,32 @@ $(() => {
             throw new Error("Oh no! Something went wrong. Error code: " + response.status);
         }
         
-            let data = await response.json();
-            let animal = data[randomNumber].name;
-            let length = data[randomNumber].characteristics.length || "Info missing, use your imagination"
-            let diet = data[randomNumber].characteristics.main_prey || "Unfortunately there's no info on this animals diet";
-            let location = data[randomNumber].locations || "You'll have to use your amazing geography skills for this one";
-            let fancyName = data[randomNumber].taxonomy.scientific_name || "Oh no! The smartfaces didn't come up with a fancy scientific name for this animal";
-            let slogan = data[randomNumber].characteristics.slogan || "Not popular enough to have a catchy slogan";
+        let data = await response.json();
+        console.log(data);
 
-            console.log(data);
-            
-            displayAnimal(animal);
-            displayFancyName(fancyName);
-            displayLength(length);
-            displayDiet(diet);
-            displayLocation(location);
-            displaySlogan(slogan);
+        let numberOfArrayElements = data.length;
+        console.log("Elements in returned array: " + numberOfArrayElements);
+        
+        const randomNumber = () => {
+            return Math.floor(Math.random() * numberOfArrayElements); 
+        }
+
+        const getRandomElement = randomNumber();
+        console.log(getRandomElement);
+
+        let animal = data[getRandomElement].name;
+        let length = data[getRandomElement].characteristics.length || "Info missing, use your imagination"
+        let diet = data[getRandomElement].characteristics.main_prey || "Unfortunately there's no info on this animals diet";
+        let location = data[getRandomElement].locations || "You'll have to use your amazing geography skills for this one";
+        let fancyName = data[getRandomElement].taxonomy.scientific_name || "Oh no! The smartfaces didn't come up with a fancy scientific name for this animal";
+        let slogan = data[getRandomElement].characteristics.slogan || "Not popular enough to have a catchy slogan";
+
+        displayAnimal(animal);
+        displayFancyName(fancyName);
+        displayLength(length);
+        displayDiet(diet);
+        displayLocation(location);
+        displaySlogan(slogan);
         } catch (error) {
             $(".note").empty().append(`<p>Oi! I don't know anything about this animal. Does "${$("#user-search").val()}" really exist? Or are you messing with mee? <br><br> I'm getting this problem: ${error}. <br><br> Hmm... Maybe try a different search? </p>`);
         }
@@ -80,7 +84,6 @@ $(() => {
             <p>Likes to eat: ${data}</p>
         `);
     };
-    
 
     const displayLength = (data) => {
         $(".animals").append(`
@@ -93,7 +96,6 @@ $(() => {
             <p>Slogan: ${data}</p>  
             `)
         };
-
     
     $(".search-btn").on("click", search);
     $("#user-search").on("keypress", function(event) {
@@ -101,5 +103,4 @@ $(() => {
             search();
         };
     });
-
 });
