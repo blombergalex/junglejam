@@ -4,19 +4,25 @@ $(() => {
     const ANIMAL_URL = "https://api.api-ninjas.com/v1/animals?name=";
     const API_KEY = "8vIIuF5yMMxMuUSYsTIIrQ==KfWC81Zd84v21P0k";
     
+
+    const randomNumber = () => {
+       return Math.floor(Math.random() * 10); //replace 10 with amount of objects returned
+    }
+
+    const getRandomNumber = randomNumber();
+    console.log("Number: " + getRandomNumber);
+    
+    
     $(".search-btn").on("click", () => {
         let search = $("#user-search").val();
         getAnimalName(ANIMAL_URL + search, API_KEY);
-        getAnimalLengthandDiet(ANIMAL_URL + search, API_KEY);
-        // getAnimalDiet(ANIMAL_URL + search, API_KEY);
+        $(".animals").empty();
         note();
     });
     
     const note = () => {
-        
         if ($("#user-search").val().length <= 3) {
-            console.log("unspecific search")
-            $(".note").empty().append(`<p>Don't be boring You're not getting a regular ${$("#user-search").val()}, whatever that is. Be a bit more specific next time ;) This is what I got for you:</p>`);
+            $(".note").empty().append(`<p>Don't be boring You're not getting a regular ${$("#user-search").val()}, whatever that is. Be a bit more specific next time.<br> This is what I got for you:</p>`);
         } else {$(".note").empty()};
     };
 
@@ -31,63 +37,63 @@ $(() => {
 
             let data = await response.json();
             let animal = data[0].name;
-            let length = data[0].characteristics.length;
-            let diet = data[0].characteristics.main_prey;
-
+            let length = data[0].characteristics.length || "Info missing, use your imagination"
+            let diet = data[0].characteristics.main_prey || "Unfortunately there's no info on this animals diet";
+            let location = data[0].locations || "You'll have to use your amazing geography skills for this one";
+            let fancyName = data[0].taxonomy.scientific_name || "Oh no! The smartfaces didn't come up with a fancy scientific name for this animal";
+            let slogan = data[0].characteristics.slogan || "Not popular enough to have a catchy slogan";
 
             console.log(data);
             
             displayAnimal(animal);
+            displayFancyName(fancyName);
             displayLength(length);
             displayDiet(diet);
+            displayLocation(location);
+            displaySlogan(slogan);
         } catch (error) {
-            $(".note").empty().append(`<p>Oi! I don't know anything about this animal. Does ${$("#user-search").val()} really exist? Or are you messing with mee? Error: ${error}</p>`);
+            $(".note").empty().append(`<p>Oi! I don't know anything about this animal. Does "${$("#user-search").val()}" really exist? Or are you messing with mee? <br><br> I'm getting this problem: ${error}. <br><br> Hmm... Maybe try a different search? </p>`);
         }
     };
 
-    // const getAnimalLengthandDiet = async (url, apiKey) => {
-    //     try {
-    //         let response = await fetch(url, {headers: {'X-Api-Key': apiKey,}
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error("Oh no! Something went wrong. Error code: " + response.status);
-    //         }
-
-    //         let data = await response.json();
-    //         let length = data[0].characteristics.length;
-    //         let diet = data[0].characteristics.main_prey;
-            
-    //         displayLength(length);
-    //         displayDiet(diet);
-    //     } catch (error) {
-    //         $(".note").empty().append(`<p>Sorry, couldn't get that much info on ${$("#user-search").val()}, because of ${error}</p>`);
-    //     }
-    // };
-
     const displayAnimal = (data) => {
         console.log("Animal data: ", data); //remove later
+    
         $(".animals").empty().append(`
             <p class="animal-name">${data}</p>
             `)
         };
 
-    const displayLength = (data) => {
+    const displayFancyName = (data) => {
         $(".animals").append(`
-            <p>${data}</p>  
-            `)
-        };
+            <p>Scientific name: ${data}</p>
+        `)
+    }
+
+    const displayLocation = (data) => {
+            $(".animals").append(`
+                <p>Found in: ${data}</p>  
+                `)
+            };
 
     const displayDiet = (data) => {
         $(".animals").append(`
             <p>Likes to eat: ${data}</p>
+        `);
+    };
+    
+
+    const displayLength = (data) => {
+        $(".animals").append(`
+            <p>Length: ${data}</p>  
             `)
         };
 
-    // const 
-        // <p>Characteristics: ${data}</p> //
-        
-        // <p>Eats: ${characteristics.prey} //
-    // const 
+    const displaySlogan = (data) => {
+        $(".animals").append(`
+            <p>Slogan: ${data}</p>  
+            `)
+        };
+
     
 });
