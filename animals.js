@@ -24,21 +24,22 @@ $(() => {
             throw new Error("Oh no! Something went wrong. Error code: " + response.status);
         }
         let data = await response.json();
+        console.log(data);
         let numberOfArrayElements = data.length;        
         const randomNumber = () => Math.floor(Math.random() * numberOfArrayElements);
         const getRandomElement = randomNumber();
 
         let animal = data[getRandomElement].name;
-        let length = data[getRandomElement].characteristics.length || "Info missing, use your imagination"
-        let diet = data[getRandomElement].characteristics.main_prey || "Unfortunately there's no info on this animals diet";
-        let location = data[getRandomElement].locations || "You'll have to use your amazing geography skills for this one";
         let fancyName = data[getRandomElement].taxonomy.scientific_name || "Oh no! The experts didn't come up with a fancy scientific name for this animal";
+        let length = data[getRandomElement].characteristics.length || "Info missing, use your imagination"
+        let diet = data[getRandomElement].characteristics.main_prey || data[getRandomElement].characteristics.prey || "Unfortunately there's no info on this animals diet";
+        let location = data[getRandomElement].locations || "You'll have to use your amazing geography skills for this one";
         let slogan = data[getRandomElement].characteristics.slogan || "Not popular enough to have a catchy slogan";
 
         displayAnimal(animal);
         displayFancyName(fancyName);
-        displayLength(length);
         displayDiet(diet);
+        displayLength(length);
         displayLocation(location);
         displaySlogan(slogan);
         } catch (error) {
@@ -63,22 +64,22 @@ $(() => {
             `)
         }, 500);
         };
+
+    const displayDiet = (data) => {
+        setTimeout(() => {
+            $(".animals").append(`
+            <p>Likes to eat: ${data}</p>
+            `);
+        }, 1000);
+    };  
         
     const displayLength = (data) => {
         setTimeout(() => {
             $(".animals").append(`
             <p>Length: ${data}</p>  
             `)
-        }, 1000);
-    };
-    
-    const displayDiet = (data) => {
-        setTimeout(() => {
-            $(".animals").append(`
-            <p>Likes to eat: ${data}</p>
-            `);
         }, 1500);
-    };  
+    };
     
     const displayLocation = (data) => {
         setTimeout(() => {
