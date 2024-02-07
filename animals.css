@@ -20,8 +20,8 @@ body {
 }
 
 header {
-    background-color: rgb(223, 141, 8);
-    box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+    background-color: goldenrod;
+    box-shadow: rgba(8, 8, 8) 0px 0px 15px;
     border-radius: 5px;
     color: rgb(255, 253, 253);
     font-size: 0.8rem;
@@ -33,7 +33,6 @@ header {
 
 .main-content  {
     justify-content: center;
-    /* padding: 24px; */
     margin: 48px;
     font-size: 1.2rem;
 }
@@ -42,8 +41,6 @@ header {
     align-items: start;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
-    
 }
 
 .search * {
@@ -52,14 +49,9 @@ header {
     border-radius: 2px;
 }
 
-#user-search {
-}
-
 .search-btn {
     background-color: goldenrod;
-    /* color: rgb(37, 35, 35); */
     color: #ffffff;
     text-shadow: 0.5px 0.5px 0.5px rgb(37, 35, 35);
-
     border: 0;
 }
