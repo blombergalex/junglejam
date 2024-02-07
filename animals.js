@@ -8,14 +8,13 @@ $(() => {
     const getRandomNumber = () => {
        return Math.floor(Math.random() * 10); //replace 10 with amount of objects returned
     }
-    
-    
-    $(".search-btn").on("click", () => {
-        let search = $("#user-search").val();
-        getAnimalName(ANIMAL_URL + search, API_KEY);
+
+    const search = () => {
+        let userInput = $("#user-search").val();
+        getAnimalName(ANIMAL_URL + userInput, API_KEY);
         $(".animals").empty();
         note();
-    });
+    };
     
     const note = () => {
         if ($("#user-search").val().length <= 3) {
@@ -96,4 +95,11 @@ $(() => {
         };
 
     
+    $(".search-btn").on("click", search);
+    $("#user-search").on("keypress", function(event) {
+        if (event.which === 13) {
+            search();
+        };
+    });
+
 });
