@@ -26,6 +26,7 @@ header {
     color: rgb(255, 253, 253);
     font-size: 0.8rem;
     font-weight: 600;
+    text-shadow: 0.5px 0.5px 0.5px rgb(37, 35, 35);
     text-align: center;
     margin: 32px;
     padding: 16px;
@@ -44,7 +45,7 @@ header {
 }
 
 .search * {
-    margin: 8px;
+    margin: 8px 0px;
     border: 0;
     border-radius: 2px;
 }
@@ -52,6 +53,15 @@ header {
 .search-btn {
     background-color: goldenrod;
     color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
     text-shadow: 0.5px 0.5px 0.5px rgb(37, 35, 35);
     border: 0;
+}
+
+#user-search {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.error-code span {
+    color: red;
 }

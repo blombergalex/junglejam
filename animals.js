@@ -1,5 +1,4 @@
 $(() => {
-
     const ANIMAL_URL = "https://api.api-ninjas.com/v1/animals?name=";
     const API_KEY = "8vIIuF5yMMxMuUSYsTIIrQ==KfWC81Zd84v21P0k";
     
@@ -12,34 +11,21 @@ $(() => {
     
     const note = () => {
         if ($("#user-search").val().length <= 3) {
-            $(".note").empty().append(`<p>Don't be boring You're not getting a regular ${$("#user-search").val()}, whatever that is. Be a bit more specific next time.<br> This is what I got for you:</p>`);
+            $(".note").empty().append(`<p>Don't be boring You're not getting a regular ${$("#user-search").val()}. Be a bit more specific next time.<br> This is what I got you:</p>`);
         } else {$(".note").empty()};
     };
     
     const getAnimalName = async (url, apiKey) => {
-        // const randomNumber = getRandomNumber();
-        // console.log("Number: " + randomNumber);
-        
         try {
-            let response = await fetch(url, {headers: {'X-Api-Key': apiKey,}
-        });
-        
+            let response = await fetch(url, {headers: {'X-Api-Key': apiKey}
+            });
         if (!response.ok) {
             throw new Error("Oh no! Something went wrong. Error code: " + response.status);
         }
-        
         let data = await response.json();
-        console.log(data);
-
-        let numberOfArrayElements = data.length;
-        console.log("Elements in returned array: " + numberOfArrayElements);
-        
-        const randomNumber = () => {
-            return Math.floor(Math.random() * numberOfArrayElements); 
-        }
-
+        let numberOfArrayElements = data.length;        
+        const randomNumber = () => Math.floor(Math.random() * numberOfArrayElements);
         const getRandomElement = randomNumber();
-        console.log(getRandomElement);
 
         let animal = data[getRandomElement].name;
         let length = data[getRandomElement].characteristics.length || "Info missing, use your imagination"
@@ -55,13 +41,15 @@ $(() => {
         displayLocation(location);
         displaySlogan(slogan);
         } catch (error) {
-            $(".note").empty().append(`<p>Oi! I don't know anything about this animal. Does "${$("#user-search").val()}" really exist? Or are you messing with mee? <br><br> I'm getting this problem: ${error}. <br><br> Hmm... Maybe try a different search? </p>`);
+            $(".note").empty().append(`
+            <p>Oi! I don't know anything about this animal. Does "${$("#user-search").val()}" really exist? Or are you messing with me?</p>
+            <p class="error-code">I'm getting this problem: <br> <span>${error}.</span></p>
+            <p>Hmm... Maybe try a different search? </p>
+            `);
         }
     };
 
-    const displayAnimal = (data) => {
-        console.log("Animal data: ", data); //remove later
-    
+    const displayAnimal = (data) => {    
         $(".animals").empty().append(`
             <p class="animal-name">${data}</p>
             `)
