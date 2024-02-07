@@ -7,11 +7,12 @@ $(() => {
         getAnimalName(ANIMAL_URL + userInput, API_KEY);
         $(".animals").empty();
         note();
+        clearInput();
     };
     
     const note = () => {
         if ($("#user-search").val().length <= 3) {
-            $(".note").empty().append(`<p>Don't be boring You're not getting a regular ${$("#user-search").val()}. Be a bit more specific next time.<br> This is what I got you:</p>`);
+            $(".note").empty().append(`<p>Don't be boring You're not getting a regular <span class="short-search">${$("#user-search").val()}</span>. Be a bit more specific next time.<br> This is what I got you:</p>`);
         } else {$(".note").empty()};
     };
     
@@ -31,7 +32,7 @@ $(() => {
         let length = data[getRandomElement].characteristics.length || "Info missing, use your imagination"
         let diet = data[getRandomElement].characteristics.main_prey || "Unfortunately there's no info on this animals diet";
         let location = data[getRandomElement].locations || "You'll have to use your amazing geography skills for this one";
-        let fancyName = data[getRandomElement].taxonomy.scientific_name || "Oh no! The smartfaces didn't come up with a fancy scientific name for this animal";
+        let fancyName = data[getRandomElement].taxonomy.scientific_name || "Oh no! The experts didn't come up with a fancy scientific name for this animal";
         let slogan = data[getRandomElement].characteristics.slogan || "Not popular enough to have a catchy slogan";
 
         displayAnimal(animal);
@@ -56,36 +57,55 @@ $(() => {
         };
 
     const displayFancyName = (data) => {
-        $(".animals").append(`
-            <p>Scientific name: ${data}</p>
-        `)
-    }
-
-    const displayLocation = (data) => {
+        setTimeout(() => {
             $(".animals").append(`
-                <p>Found in: ${data}</p>  
-                `)
-            };
-
-    const displayDiet = (data) => {
-        $(".animals").append(`
-            <p>Likes to eat: ${data}</p>
-        `);
-    };
-
+            <p>Scientific name: ${data}</p>
+            `)
+        }, 500);
+        };
+        
     const displayLength = (data) => {
-        $(".animals").append(`
+        setTimeout(() => {
+            $(".animals").append(`
             <p>Length: ${data}</p>  
             `)
-        };
+        }, 1000);
+    };
+    
+    const displayDiet = (data) => {
+        setTimeout(() => {
+            $(".animals").append(`
+            <p>Likes to eat: ${data}</p>
+            `);
+        }, 1500);
+    };  
+    
+    const displayLocation = (data) => {
+        setTimeout(() => {
+            $(".animals").append(`
+            <p>Found in: ${data}</p>  
+            `)
+        }, 2000);
+    };
 
     const displaySlogan = (data) => {
-        $(".animals").append(`
+        setTimeout(() => {
+            $(".animals").append(`
             <p>Slogan: ${data}</p>  
             `)
-        };
-    
-    $(".search-btn").on("click", search);
+        }, 2500);
+    };
+
+    const clearInput = () => {
+        setTimeout(() => {
+        $("#user-search").val("");
+        }, 3000);
+    }
+
+    $(".search-btn").on("click", () => {
+        search();
+    });
+
     $("#user-search").on("keypress", function(event) {
         if (event.which === 13) {
             search();
