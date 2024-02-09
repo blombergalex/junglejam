@@ -24,11 +24,10 @@ $(() => {
             throw new Error("Oh no! Something went wrong. Error code: " + response.status);
         }
         let data = await response.json();
-        console.log(data);
         let numberOfArrayElements = data.length;        
         const randomNumber = () => Math.floor(Math.random() * numberOfArrayElements);
         const getRandomElement = randomNumber();
-
+        
         let animal = data[getRandomElement].name;
         let fancyName = data[getRandomElement].taxonomy.scientific_name || "Oh no! The experts didn't come up with a fancy scientific name for this animal";
         let length = data[getRandomElement].characteristics.length || "Info missing, use your imagination"
